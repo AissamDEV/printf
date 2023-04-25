@@ -11,6 +11,7 @@ int _printf(const char *format, ...)
 {
 	int num_chars = 0;
 	char c;
+	char *s;
 	va_list arg_list;
 
 	va_start(arg_list, format);
@@ -27,7 +28,7 @@ int _printf(const char *format, ...)
 				num_chars++;
 			} else if (*format == 's')
 			{
-				char *s = va_arg(arg_list, char *);
+				s = va_arg(arg_list, char *);
 
 				while (*s != '\0')
 				{
