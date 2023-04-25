@@ -1,52 +1,21 @@
-#include <stdarg.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include "main.h"
 /**
- * _printf - Print a formatted string to stdout.
- * @format: Format string.
- *
- * Return: The number of characters printed.
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
  */
 int _printf(const char *format, ...)
 {
-	int num_chars = 0;
-	char c;
-	char *s;
-	va_list arg_list;
+	int printed_chars;
+	va_list args;
 
-	va_start(arg_list, format);
+	if (format == NULL)
+		return (-1);
+	va_start(args, format);
 
-	while (*format != '\0')
-	{
-		if (*format == '%')
-		{
-			format++;
-			if (*format == 'c')
-			{
-				c = (char) va_arg(arg_list, int);
-				putchar(c);
-				num_chars++;
-			} else if (*format == 's')
-			{
-				s = va_arg(arg_list, char *);
-
-				while (*s != '\0')
-				{
-					putchar(*s);
-					s++;
-					num_chars++;
-				}
-			} else if (*format == '%')
-			{
-				putchar('%');
-				num_chars++;
-			}
-		} else
-		{
-			putchar(*format);
-			num_chars++;
-		}
-		format++;
-	} va_end(arg_list);
-	return (num_chars);
+	printed_chars = vprintf(format, args);
+	va_end(args);
+	return (printed_chars);
 }
