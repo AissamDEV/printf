@@ -1,51 +1,81 @@
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
- * _printf - Print formatted output to stdout
- * @format: The format string, containing conversion specifiers
- * and optional text to be printed verbatim
+ * print_arg - Print the argument based on the specified conversion specifier.
+ * @args: The list of arguments.
+ * @specifier: The conversion specifier.
  *
- * Return: The number of characters printed, excluding the null byte
- * used to end output to strings, or a negative value if an error occurs
+ * Return: The number of characters printed.
+ */
+int print_arg(va_list args, char specifier)
+{
+	int len = 0;
+
+	switch (specifier)
+	{
+		case 'c':
+			len += putchar(va_arg(args, int));
+			break;
+		case 's':
+			len += printf("%s", va_arg(args, char *));
+			break;
+		case 'd':
+		case 'i':
+			len += printf("%d", va_arg(args, int));
+			break;
+		case 'u':
+			len += printf("%u", va_arg(args, unsigned int));
+			break;
+		case 'o':
+			len += printf("%o", va_arg(args, unsigned int));
+			break;
+		case 'x':
+			len += printf("%x", va_arg(args, unsigned int));
+			break;
+		case 'X':
+			len += printf("%X", va_arg(args, unsigned int));
+			break;
+		case 'p':
+			len += printf("%p", va_arg(args, void *));
+			break;
+		case '%':
+			len += putchar('%');
+			break;
+		default:
+			len += putchar('%');
+			len += putchar(specifier);
+			break;
+	}
+	return (len);
+}
+/**
+ * _printf - Print a formatted string to stdout.
+ * @format: Format string.
+ *
+ * Return: The number of characters printed.
  */
 int _printf(const char *format, ...)
 {
-	int num_chars_printed = 0;
-	const char *p = format;
-
 	va_list args;
+	int len = 0;
+
 	va_start(args, format);
 
-	while (*p != '\0')
+	while (*format)
 	{
-		if (*p == '%')
+		if (*format == '%')
 		{
-			p++;
-			switch (*p)
-			{
-				case 'd':
-					num_chars_printed += printf("%d", va_arg(args, int));
-					break;
-				case 's':
-					num_chars_printed += printf("%s", va_arg(args, char*));
-					break;
-				case 'f':
-					num_chars_printed += printf("%f", va_arg(args, double));
-					break;
-				case 'c':
-					num_chars_printed += printf("%c", va_arg(args, int));
-					break;
-				default:
-					num_chars_printed += printf("%%%c", *p);
-			}
+			format++;
+			len += print_arg(args, *format);
 		}
 		else
 		{
-			putchar(*p);
-			num_chars_printed++;
+			len += putchar(*format);
 		}
-		p++;
+		format++;
 	}
 	va_end(args);
-	return (num_chars_printed);
+	return (len);
 }
