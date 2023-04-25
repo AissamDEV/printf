@@ -13,31 +13,16 @@
  */
 int print_binary(va_list args, format_specifier_t *spec)
 {
-	int i, padding;
 	unsigned int num = va_arg(args, unsigned int);
-	char *binary_str = (char *)malloc(sizeof(char) * 33);
+	char binary_str[33];
+	int i = 0;
 
-	if (binary_str == NULL)
-	{
-		perror("Error");
-		exit(1);
-	}
-	for (i = 0; i < 32; i++)
-	{
-		binary_str[i] = (num & (1 << (31 - i))) ? '1' : '0';
-	}
-	binary_str[32] = '\0';
+	while (num)
+		binary_str[i++] = (num & 1) + '0';
+		num >>= 1;
 
-	padding = spec->width - 32;
-	if (padding > 0)
-	{
-		for (i = 0; i < padding; i++)
-		{
-			putchar('0');
-		}
-	}
-	printf("%s", binary_str);
-	free(binary_str);
+	binary_str[i] = '\0';
+	str_reverse(binary_str);
 
-	return (0);
+	return (print_string(binary_str, spec));
 }
