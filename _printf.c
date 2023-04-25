@@ -1,5 +1,6 @@
 #include <stdarg.h>
 #include <stdio.h>
+#include "main.h"
 /**
  * _printf - Print a formatted string to stdout.
  * @format: Format string.
