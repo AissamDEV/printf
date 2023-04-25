@@ -2,9 +2,9 @@
 #include <stdarg.h>
 #include "main.h"
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
+ * _printf - Custom printf function
+ * @format: The format string
+ * Return: The number of characters printed
  */
 int _printf(const char *format, ...)
 {
