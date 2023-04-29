@@ -24,7 +24,8 @@
 
 • Thats all ! You can now use it like the following example :
 
-``` #include "main.h"
+``` 
+#include "main.h"
 void main (){
     _printf("Hello, World\n");
     } 
