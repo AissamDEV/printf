@@ -7,6 +7,7 @@
 ## Team :
 
 • Mohamed Dani
+
 • Aissam AbouQassim El edrissi
 
 ## How to use ?
@@ -26,6 +27,7 @@
 ``` #include "main.h"
 void main (){
     _printf("Hello, World\n");
-    } ```
-   
+    } 
+```
+
 ## Thanks for ALX software engineering. 
